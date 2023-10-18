@@ -15,8 +15,6 @@ classifiers = [
 ]
 keywords = ["logger", "f451"]
 dependencies = [
-    "logging",
-    "pprint",
     'tomli; python_version < "3.11"'
 ]
 requires-python = ">=3.9"
