@@ -3,8 +3,30 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "logger"
+name = "f451-logger"
+description = "f451 Labs Logger module"
+readme = "README.md"
 authors = [{name = "Martin Lanser", email = "martinlanser@gmail.com"}]
 license = {file = "LICENSE"}
-classifiers = ["License :: OSI Approved :: MIT License"]
-dynamic = ["version", "description"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3"
+]
+keywords = ["logger", "f451"]
+dependencies = [
+    "logging",
+    "pprint",
+    'tomli; python_version < "3.11"'
+]
+requires-python = ">=3.9"
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["black", "bumpver", "isort", "pip-tools", "pytest"]
+
+[project.urls]
+Homepage = "https://github.com/mlanser/f451-logger"
+
+[project.scripts]
+realpython = "logger.__main__:main"
