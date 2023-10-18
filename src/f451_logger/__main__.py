@@ -1,7 +1,7 @@
 import sys
 
 from logging import INFO
-from logger.logger import Logger
+from f451_logger.logger import Logger
 
 def main():
     """Write 'Hello world!' to log system."""
