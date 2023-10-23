@@ -2,8 +2,7 @@
 
 ## Overview
 
-The f451 Labs Logger module encapsulates the default Python 'Logging' class
-and adds a few more features that are commonly used in f451 Labs projects.
+The *f451 Labs Logger* module encapsulates the default Python `Logging` class and adds a few more features that are commonly used in *f451 Labs* projects.
 
 ## Install
 
@@ -16,7 +15,7 @@ This module is dependent on the following libraries:
 - [logging](https://docs.python.org/3/howto/logging.html)
 - [pprint](https://docs.python.org/3/library/pprint.html)
 
-### Installation from Github
+### Installing from Github using `pip`
 
 You can use `pip install` to install this module directly from Github as follows:
 
