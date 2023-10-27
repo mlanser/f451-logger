@@ -9,11 +9,11 @@ from f451_logger.logger import Logger
 def main():
     """Write 'Hello world!' to log system."""
 
-    logger = Logger(logLvl=INFO)
+    logger = Logger(LOGLVL=INFO)
 
     print("=== f451 Labs Logger module ===")
     print("Showing log message:")
-    logger.log(INFO, "Hello world!")
+    logger.log("Hello world!", INFO)
 
 
     print("\nShowing PrettyPrint:")

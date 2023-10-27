@@ -12,11 +12,18 @@ import logging
 
 from src.f451_logger.logger import Logger
 
+
+# =========================================================
+#          F I X T U R E S   A N D   H E L P E R S
+# =========================================================
 @pytest.fixture
 def valid_str():
     return "Hello world"
 
 
+# =========================================================
+#                    T E S T   C A S E S
+# =========================================================
 def test_debug(capsys, valid_str):
     logger = Logger()
     logger.debug(valid_str)
@@ -28,7 +35,7 @@ def test_debug(capsys, valid_str):
 def test_log_default(caplog, valid_str):
     caplog.set_level(logging.DEBUG)
 
-    logger = Logger(name="testLogger", logLvl=logging.DEBUG)
+    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.DEBUG)
     logger.log(valid_str)
 
     assert valid_str in caplog.text
@@ -53,7 +60,7 @@ def test_log_default(caplog, valid_str):
 def test_log(caplog, valid_str, testLogLvl, testLogLvlStr):
     caplog.set_level(logging.DEBUG)
 
-    logger = Logger(name="testLogger", logLvl=testLogLvl)
+    logger = Logger(LOGNAME="testLogger", LOGLVL=testLogLvl)
     logger.log(valid_str, testLogLvl)
 
     assert valid_str in caplog.text
@@ -71,7 +78,7 @@ def test_log(caplog, valid_str, testLogLvl, testLogLvlStr):
 def test_log_debug(caplog, valid_str):
     caplog.set_level(logging.DEBUG)
 
-    logger = Logger(name="testLogger", logLvl=logging.DEBUG)
+    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.DEBUG)
     logger.log_debug(valid_str)
 
     assert valid_str in caplog.text
@@ -90,7 +97,7 @@ def test_log_debug(caplog, valid_str):
 def test_log_info(caplog, valid_str):
     caplog.set_level(logging.INFO)
 
-    logger = Logger(name="testLogger", logLvl=logging.INFO)
+    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.INFO)
     logger.log_info(valid_str)
 
     assert valid_str in caplog.text
@@ -109,7 +116,7 @@ def test_log_info(caplog, valid_str):
 def test_log_warning(caplog, valid_str):
     caplog.set_level(logging.WARNING)
 
-    logger = Logger(name="testLogger", logLvl=logging.WARNING)
+    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.WARNING)
     logger.log_warning(valid_str)
 
     assert valid_str in caplog.text
@@ -128,7 +135,7 @@ def test_log_warning(caplog, valid_str):
 def test_log_error(caplog, valid_str):
     caplog.set_level(logging.ERROR)
 
-    logger = Logger(name="testLogger", logLvl=logging.ERROR)
+    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.ERROR)
     logger.log_error(valid_str)
 
     assert valid_str in caplog.text

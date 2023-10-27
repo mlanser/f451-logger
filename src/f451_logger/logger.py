@@ -17,6 +17,20 @@ import pprint
 
 
 # =========================================================
+#              M I S C .   C O N S T A N T S
+# =========================================================
+DEF_LOG_NAME = "f451-Log"   # Default logger name
+
+
+# =========================================================
+#    K E Y W O R D S   F O R   C O N F I G   F I L E S
+# =========================================================
+KWD_LOG_NAME = "LOGNAME"
+KWD_LOG_LEVEL = "LOGLVL"
+KWD_LOG_FILE = "LOGFILE"
+
+
+# =========================================================
 #                     M A I N   C L A S S
 # =========================================================
 class Logger:
@@ -26,22 +40,44 @@ class Logger:
     by wrapping the default Python 'logging' module/class. It also includes 
     the 'pprint' for displaying debug messages.
 
+    NOTE: attributes follow same naming convention as used 
+    in the 'settings.toml' file. This makes it possible to pass 
+    in the 'config' object (or any other dict) as is.
+
+    NOTE: we let users provide an entire 'dict' object with settings as 
+    key-value pairs, or as individual settings. User can combine both and,
+    for example, provide a standard 'config' object as well as individual
+    settings which could override the values in the 'config' object.
+
+    Example:
+        myLogger = Logger()                 # Only use default values
+        myLogger = Logger(config)           # Use values from 'config' 
+        myLogger = Logger(key=val)          # Use val
+        myLogger = Logger(config, key=val)  # Use values from 'config' and also use 'val' 
+
     Attributes:
-        name: Name of 'logger' as 'str'
-        logLvl: Default log level as 'int'
-        logFile: Default log file as 'str' or 'Path' object
+        LOGNAME:    Logger name as 'str'
+        LOGLVL:     Log level as 'int'
+        LOGFILE:    Log file as 'str' or 'Path' object
     """
-    def __init__(self, name="f451-Log", logLvl=logging.NOTSET, logFile=None):
+    def __init__(self, *args, **kwargs):
         """Initialize logger
 
         Args:
-            logLvl: Default log level as 'int'
-            logFile: Path object for log file
+            args:
+                User can provide single 'dict' with settings
+            kwargs:
+                User can provide individual settings as key-value pairs
         """
-        self._LOG = self._init_logger(name, logLvl, logFile)
         self._PP = pprint.PrettyPrinter(indent=4)
 
-    def _init_logger(self, name, logLvl, logFile):
+        # We combine 'args' and 'kwargs' to allow users to provide the entire 
+        # 'config' object and/or individual settings (which could override 
+        # values in 'config').
+        settings = {**args[0], **kwargs} if args and type(args[0]) is dict else kwargs
+        self._LOG = self._init_logger(**settings)
+
+    def _init_logger(self, **kwargs):
         """Initialize Logger
 
         We always initialize the logger with a stream 
@@ -49,14 +85,17 @@ class Logger:
         a file name has been provided in settings.
 
         Args:
-            name: Name of logger as 'str'
-            logLvl: Default log level as 'int'
-            logFile: Path object for log file
+            kwargs:
+                Core settings as key-value pairs in 'dict'
 
         Returns:
             Initialized 'logger' object
         """
-        logger = logging.getLogger(name)
+        logName = kwargs.get(KWD_LOG_NAME, DEF_LOG_NAME) 
+        logLvl = kwargs.get(KWD_LOG_LEVEL, logging.NOTSET)
+        logFile = kwargs.get(KWD_LOG_FILE)
+
+        logger = logging.getLogger(logName)
         logger.setLevel(logLvl)
 
         if logFile:
