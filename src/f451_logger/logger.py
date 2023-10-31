@@ -14,6 +14,7 @@ How to use:
 
 import logging
 import pprint
+import json
 
 
 # =========================================================
@@ -111,13 +112,17 @@ class Logger:
 
         return logger
 
-    def debug(self, val):
+    def debug(self, val, strict=True):
         """Wrapper of pprint.pprint()
         
         Args:
-            val: Value to be 'pretty' printed.
+            val: Value to be 'pretty' printed
+            strict: If 'True', then values are printed as-is
         """
-        self._PP.pprint(val)
+        if isinstance(val, dict) and not strict:
+            self._PP.pprint(json.dumps(val, indent=4))
+        else:    
+            self._PP.pprint(val)
 
     def log(self, msg, lvl=logging.DEBUG):
         """Wrapper of Logger.log()
