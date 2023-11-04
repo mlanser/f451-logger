@@ -112,6 +112,13 @@ class Logger:
 
         return logger
 
+    def set_log_level(self, lvl):
+        """Set/update log level after initialization."""
+        self._LOG.setLevel(lvl)
+
+        for handler in self._LOG.handlers:
+            handler.setLevel(lvl)
+
     def debug(self, val, strict=True):
         """Wrapper of pprint.pprint()
         
