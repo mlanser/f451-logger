@@ -78,6 +78,20 @@ class Logger:
         settings = {**args[0], **kwargs} if args and type(args[0]) is dict else kwargs
         self._LOG = self._init_logger(**settings)
 
+    @staticmethod
+    def _init_file_handler(logLvl, logFile):
+        fileHandler = logging.FileHandler(logFile)
+        fileHandler.setLevel(logLvl)
+        fileHandler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s: %(message)s"))
+        return fileHandler
+
+    @staticmethod
+    def _init_stream_handler(logLvl):
+        streamHandler = logging.StreamHandler()
+        streamHandler.setLevel(logLvl)
+        streamHandler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s: %(message)s"))
+        return streamHandler
+
     def _init_logger(self, **kwargs):
         """Initialize Logger
 
@@ -100,24 +114,30 @@ class Logger:
         logger.setLevel(logLvl)
 
         if logFile:
-            fileHandler = logging.FileHandler(logFile)
-            fileHandler.setLevel(logLvl)
-            fileHandler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s: %(message)s"))
-            logger.addHandler(fileHandler)
-
-        streamHandler = logging.StreamHandler()
-        streamHandler.setLevel(logLvl)
-        streamHandler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s: %(message)s"))
-        logger.addHandler(streamHandler)
+            logger.addHandler(self._init_file_handler(logLvl, logFile))
+            
+        logger.addHandler(self._init_stream_handler(logLvl))
 
         return logger
 
-    def set_log_level(self, lvl):
+    def set_log_level(self, logLvl):
         """Set/update log level after initialization."""
-        self._LOG.setLevel(lvl)
+        self._LOG.setLevel(logLvl)
 
-        for handler in self._LOG.handlers:
-            handler.setLevel(lvl)
+        for handler in self._LOG.handlers[:]:
+            handler.setLevel(logLvl)
+
+    def set_log_file(self, logLvl, logFile):
+        """Set/update log file after initialization.
+        
+        Based on solution found here:
+        https://stackoverflow.com/questions/13839554/how-to-change-filehandle-with-python-logging-on-the-fly-with-different-classes-a
+        """
+        for handler in self._LOG.handlers[:]:   # Remove existing file handlers
+            if isinstance(handler, logging.FileHandler):
+                self._LOG.removeHandler(handler)
+
+        self._LOG.addHandler(self._init_file_handler(logLvl, logFile))
 
     def debug(self, val, strict=True):
         """Wrapper of pprint.pprint()
