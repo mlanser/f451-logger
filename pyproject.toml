@@ -21,7 +21,14 @@ requires-python = ">=3.9"
 dynamic = ["version"]
 
 [project.optional-dependencies]
-dev = ["black", "bumpver", "isort", "pip-tools", "pytest"]
+dev = [
+    "black", 
+    "bumpver", 
+    "isort", 
+    "pip-tools", 
+    "pytest",
+    "pytest-random"
+]
 
 [project.urls]
 Homepage = "https://github.com/mlanser/f451-logger"
@@ -46,7 +53,7 @@ push = false
     'current_version = "{version}"',
     'version = "{version}"'
 ]
-"src/f451-logger/__init__.py" = ["{version}"]
+"src/f451_logger/__init__.py" = ["{version}"]
 "README.md" = [
     "{version}",
     "{pep440_version}",
