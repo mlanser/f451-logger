@@ -53,5 +53,4 @@ push = false
     'current_version = "{version}"',
     'version = "{version}"'
 ]
-"src/f451_logger/__init__.py" = ["{version}"]
-"README.md" = ["{version}"]
+"src/f451_logger/__init__.py" = ['__version__ = "{version}"']
