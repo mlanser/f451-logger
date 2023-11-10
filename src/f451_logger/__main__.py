@@ -7,17 +7,18 @@ from f451_logger.logger import Logger
 #                    D E M O   A P P
 # =========================================================
 def main():
-    """Write 'Hello world!' to log system."""
-
+    # Initialize Logger
     logger = Logger(LOGLVL=INFO)
 
-    print("=== f451 Labs Logger module ===")
+    print("\n====== [Demo of f451 Labs Logger module] ======")
     print("Showing log message:")
     logger.log("Hello world!", INFO)
 
 
     print("\nShowing PrettyPrint:")
     logger.debug("Hello world!")
+
+    print("=============== [End of Demo] =================\n")
 
 
 if __name__ == "__main__":
