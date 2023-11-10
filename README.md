@@ -33,24 +33,32 @@ $ pip install 'f451-logger @ git+ssh://git@github.com:mlanser/f451-logger.git'
 
 ## How to use
 
-Using the module is straightforward. Simply `import` it to you code and instantiate a logger object which you can then use throught your code.
+Using the module is straightforward. Simply `import` it into your code and instantiate a logger object which you can then use throughout your code.
 
 ```Python
+# Import f451 Labs Logger
 from f451_logger.logger import Logger
 
+# This is optional, but useful if you want to 
+# use predefined constant for logging levels
+import logging
+
 # Instantiate using defaults ...
-logger = Logger()
+myLogger = Logger()
 
 # ... or with custom log level and log file values
-logger = Logger(logLvl=logging.ERROR, logFile="path/to/mylogfile.log")
+myLogger = Logger(
+    logLvl=logging.ERROR, 
+    logFile="path/to/mylogfile.log"
+)
 
 # Call 'log_xxxx' methods to log messages
-logger.log_info("Hello world!")
-logger.log_error("Oops! Something broke :-(")
+myLogger.log_info("Hello world!")
+myLogger.log_error("Oops! Something broke :-(")
 
 # Call 'debug' method to show message in console
-logger.debug("Hello world!")
+myLogger.debug("Hello world!")
 
 myVar = 2
-logger.debug(myVar)
+myLogger.debug(myVar)
 ```
