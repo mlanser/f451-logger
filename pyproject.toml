@@ -50,8 +50,8 @@ push = false
 
 [tool.bumpver.file_patterns]
 "pyproject.toml" = ['current_version = "{version}"']
-"src/f451_logger/__init__.py" = ["{version}"]
-"README.md" = [
-    "v{version}",
-    "{pep440_version}",
-]
+"src/f451_logger/__init__.py" = ['_version__ = "{version}"']
+# "README.md" = [
+#     "v{version}",
+#     "{pep440_version}",
+# ]
