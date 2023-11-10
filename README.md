@@ -33,7 +33,7 @@ $ pip install 'f451-logger @ git+ssh://git@github.com:mlanser/f451-logger.git'
 
 ## How to use
 
-Using the module is straightforward. Simply `import` it into your code and instantiate a logger object which you can then use throughout your code.
+Using the module is straightforward. Simply `import` it into your code and instantiate a `Logger` object which you can then use throughout your code.
 
 ```Python
 # Import f451 Labs Logger
