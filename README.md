@@ -6,7 +6,7 @@ The *f451 Labs Logger* module encapsulates the default Python `Logging` class an
 
 ## Install
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis a cras semper auctor neque vitae.
+This module is not (yet) available on PyPi. however, you can still use `pip` to install the module directly from Github (see below).
 
 ### Dependencies
 
@@ -33,12 +33,24 @@ $ pip install 'f451-logger @ git+ssh://git@github.com:mlanser/f451-logger.git'
 
 ## How to use
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis a cras semper auctor neque vitae.
+Using the module is straightforward. Simply `import` it to you code and instantiate a logger object which you can then use throught your code.
 
 ```Python
-# Using defaults ...
+from f451_logger.logger import Logger
+
+# Instantiate using defaults ...
 logger = Logger()
 
 # ... or with custom log level and log file values
 logger = Logger(logLvl=logging.ERROR, logFile="path/to/mylogfile.log")
+
+# Call 'log_xxxx' methods to log messages
+logger.log_info("Hello world!")
+logger.log_error("Oops! Something broke :-(")
+
+# Call 'debug' method to show message in console
+logger.debug("Hello world!")
+
+myVar = 2
+logger.debug(myVar)
 ```
