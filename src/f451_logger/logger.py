@@ -3,10 +3,6 @@
 The f451 Labs Logger module encapsulates the default Python 'Logging' class
 and adds a few more features that are commonly used in f451 Labs projects.
 
-Dependencies:
- - logging
- - pprint
-
 How to use:
     logger = Logger()
     logger = Logger(logLvl=logging.ERROR, logFile="path/to/mylogfile.log")
@@ -133,10 +129,12 @@ class Logger:
         Based on solution found here:
         https://stackoverflow.com/questions/13839554/how-to-change-filehandle-with-python-logging-on-the-fly-with-different-classes-a
         """
-        for handler in self._LOG.handlers[:]:   # Remove existing file handlers
+        # Remove any existing file handlers
+        for handler in self._LOG.handlers[:]:
             if isinstance(handler, logging.FileHandler):
                 self._LOG.removeHandler(handler)
 
+        # Add new file handler
         self._LOG.addHandler(self._init_file_handler(logLvl, logFile))
 
     def debug(self, val, strict=True):
