@@ -34,7 +34,7 @@ dev = [
 Homepage = "https://github.com/mlanser/f451-logger"
 
 [project.scripts]
-realpython = "logger.__main__:main"
+f451_logger = "logger.__main__:main"
 
 [tool.bumpver]
 current_version = "0.2.0"
