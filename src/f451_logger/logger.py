@@ -12,11 +12,32 @@ import logging
 import pprint
 import json
 
+__all__ = [
+    "Logger",
+    "DEF_LOG_NAME",
+    "LOG_NOTSET",
+    "LOG_DEBUG",
+    "LOG_INFO",
+    "LOG_WARNING",
+    "LOG_ERROR",
+    "LOG_CRITICAL",
+    "KWD_LOG_NAME",
+    "KWD_LOG_LEVEL",
+    "KWD_LOG_FILE",
+]
+
 
 # =========================================================
 #              M I S C .   C O N S T A N T S
 # =========================================================
 DEF_LOG_NAME = "f451-Log"   # Default logger name
+
+LOG_NOTSET = 0
+LOG_DEBUG = 10
+LOG_INFO = 20
+LOG_WARNING = 30
+LOG_ERROR = 40
+LOG_CRITICAL = 50
 
 
 # =========================================================
