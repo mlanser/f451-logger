@@ -1,4 +1,4 @@
-"""Demo for using f451 Labs Uploader Module."""
+"""Demo for using f451 Labs Logger Module."""
 
 from logging import INFO
 from f451_logger.logger import Logger
