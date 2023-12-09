@@ -77,6 +77,16 @@ class Logger:
         LOGNAME:    Logger name as 'str'
         LOGLVL:     Log level as 'int'
         LOGFILE:    Log file as 'str' or 'Path' object
+
+    Methods:
+        set_log_level:  Set/update log level after initialization
+        set_log_file:   Set/update log file after initialization
+        debug:          Print debug message to stdout.
+        log:            Write log message/data at any log level
+        log_debug:      Write log message/data at 'debug' level
+        log_info:       Write log message/data at 'info' level
+        log_warning:    Write log message/data at 'warning' level
+        log_error:      Write log message/data at 'error' level
     """
     def __init__(self, *args, **kwargs):
         """Initialize logger
@@ -159,8 +169,10 @@ class Logger:
         self._LOG.addHandler(self._init_file_handler(logLvl, logFile))
 
     def debug(self, val, strict=True):
-        """Wrapper of pprint.pprint()
+        """Print debug message to stdout.
         
+        This is a wrapper of pprint.pprint().
+
         Args:
             val: Value to be 'pretty' printed
             strict: If 'True', then values are printed as-is
@@ -171,7 +183,9 @@ class Logger:
             self._PP.pprint(val)
 
     def log(self, msg, lvl=logging.DEBUG):
-        """Wrapper of Logger.log()
+        """Log message/data
+        
+        Thisn is a wrapper of Logger.log().
         
         Args:
             msg: Log message as 'str'
