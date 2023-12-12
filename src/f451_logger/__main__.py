@@ -3,6 +3,7 @@
 from logging import INFO
 from f451_logger.logger import Logger
 
+
 # =========================================================
 #                    D E M O   A P P
 # =========================================================
@@ -14,12 +15,11 @@ def main():
     print("Showing log message:")
     logger.log("Hello world!", INFO)
 
-
     print("\nShowing PrettyPrint:")
     logger.debug("Hello world!")
 
     print("=============== [End of Demo] =================\n")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

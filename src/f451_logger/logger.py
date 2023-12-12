@@ -13,24 +13,24 @@ import pprint
 import json
 
 __all__ = [
-    "Logger",
-    "DEF_LOG_NAME",
-    "LOG_NOTSET",
-    "LOG_DEBUG",
-    "LOG_INFO",
-    "LOG_WARNING",
-    "LOG_ERROR",
-    "LOG_CRITICAL",
-    "KWD_LOG_NAME",
-    "KWD_LOG_LEVEL",
-    "KWD_LOG_FILE",
+    'Logger',
+    'DEF_LOG_NAME',
+    'LOG_NOTSET',
+    'LOG_DEBUG',
+    'LOG_INFO',
+    'LOG_WARNING',
+    'LOG_ERROR',
+    'LOG_CRITICAL',
+    'KWD_LOG_NAME',
+    'KWD_LOG_LEVEL',
+    'KWD_LOG_FILE',
 ]
 
 
 # =========================================================
 #              M I S C .   C O N S T A N T S
 # =========================================================
-DEF_LOG_NAME = "f451-Log"   # Default logger name
+DEF_LOG_NAME = 'f451-Log'  # Default logger name
 
 LOG_NOTSET = 0
 LOG_DEBUG = 10
@@ -43,9 +43,9 @@ LOG_CRITICAL = 50
 # =========================================================
 #    K E Y W O R D S   F O R   C O N F I G   F I L E S
 # =========================================================
-KWD_LOG_NAME = "LOGNAME"
-KWD_LOG_LEVEL = "LOGLVL"
-KWD_LOG_FILE = "LOGFILE"
+KWD_LOG_NAME = 'LOGNAME'
+KWD_LOG_LEVEL = 'LOGLVL'
+KWD_LOG_FILE = 'LOGFILE'
 
 
 # =========================================================
@@ -55,23 +55,23 @@ class Logger:
     """f451 Labs core Logger class.
 
     This class standardizes and simplifies logging across f451 Labs projects
-    by wrapping the default Python 'logging' module/class. It also includes 
+    by wrapping the default Python 'logging' module/class. It also includes
     the 'pprint' for displaying debug messages.
 
-    NOTE: attributes follow same naming convention as used 
-    in the 'settings.toml' file. This makes it possible to pass 
+    NOTE: attributes follow same naming convention as used
+    in the 'settings.toml' file. This makes it possible to pass
     in the 'config' object (or any other dict) as is.
 
-    NOTE: we let users provide an entire 'dict' object with settings as 
+    NOTE: we let users provide an entire 'dict' object with settings as
     key-value pairs, or as individual settings. User can combine both and,
     for example, provide a standard 'config' object as well as individual
     settings which could override the values in the 'config' object.
 
     Example:
         myLogger = Logger()                 # Only use default values
-        myLogger = Logger(config)           # Use values from 'config' 
+        myLogger = Logger(config)           # Use values from 'config'
         myLogger = Logger(key=val)          # Use val
-        myLogger = Logger(config, key=val)  # Use values from 'config' and also use 'val' 
+        myLogger = Logger(config, key=val)  # Use values from 'config' and also use 'val'
 
     Attributes:
         LOGNAME:    Logger name as 'str'
@@ -88,6 +88,7 @@ class Logger:
         log_warning:    Write log message/data at 'warning' level
         log_error:      Write log message/data at 'error' level
     """
+
     def __init__(self, *args, **kwargs):
         """Initialize logger
 
@@ -99,8 +100,8 @@ class Logger:
         """
         self._PP = pprint.PrettyPrinter(indent=4)
 
-        # We combine 'args' and 'kwargs' to allow users to provide the entire 
-        # 'config' object and/or individual settings (which could override 
+        # We combine 'args' and 'kwargs' to allow users to provide the entire
+        # 'config' object and/or individual settings (which could override
         # values in 'config').
         settings = {**args[0], **kwargs} if args and isinstance(args[0], dict) else kwargs
         self._LOG = self._init_logger(**settings)
@@ -109,21 +110,21 @@ class Logger:
     def _init_file_handler(logLvl, logFile):
         fileHandler = logging.FileHandler(logFile)
         fileHandler.setLevel(logLvl)
-        fileHandler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s: %(message)s"))
+        fileHandler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s: %(message)s'))
         return fileHandler
 
     @staticmethod
     def _init_stream_handler(logLvl):
         streamHandler = logging.StreamHandler()
         streamHandler.setLevel(logLvl)
-        streamHandler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s: %(message)s"))
+        streamHandler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s: %(message)s'))
         return streamHandler
 
     def _init_logger(self, **kwargs):
         """Initialize Logger
 
-        We always initialize the logger with a stream 
-        handler. But file handler is only created if 
+        We always initialize the logger with a stream
+        handler. But file handler is only created if
         a file name has been provided in settings.
 
         Args:
@@ -133,7 +134,7 @@ class Logger:
         Returns:
             Initialized 'logger' object
         """
-        logName = kwargs.get(KWD_LOG_NAME, DEF_LOG_NAME) 
+        logName = kwargs.get(KWD_LOG_NAME, DEF_LOG_NAME)
         logLvl = kwargs.get(KWD_LOG_LEVEL, logging.NOTSET)
         logFile = kwargs.get(KWD_LOG_FILE)
 
@@ -142,7 +143,7 @@ class Logger:
 
         if logFile:
             logger.addHandler(self._init_file_handler(logLvl, logFile))
-            
+
         logger.addHandler(self._init_stream_handler(logLvl))
 
         return logger
@@ -156,7 +157,7 @@ class Logger:
 
     def set_log_file(self, logLvl, logFile):
         """Set/update log file after initialization.
-        
+
         Based on solution found here:
         https://stackoverflow.com/questions/13839554/how-to-change-filehandle-with-python-logging-on-the-fly-with-different-classes-a
         """
@@ -170,7 +171,7 @@ class Logger:
 
     def debug(self, val, strict=True):
         """Print debug message to stdout.
-        
+
         This is a wrapper of pprint.pprint().
 
         Args:
@@ -179,14 +180,14 @@ class Logger:
         """
         if isinstance(val, dict) and not strict:
             self._PP.pprint(json.dumps(val, indent=4))
-        else:    
+        else:
             self._PP.pprint(val)
 
     def log(self, msg, lvl=logging.DEBUG):
         """Log message/data
-        
+
         Thisn is a wrapper of Logger.log().
-        
+
         Args:
             msg: Log message as 'str'
             lvl: Logging level as 'int'. Default is 'logging.DEBUG'
@@ -195,7 +196,7 @@ class Logger:
 
     def log_debug(self, msg):
         """Wrapper of Logger.debug()
-        
+
         Args:
             msg: Log message as 'str'
         """
@@ -203,7 +204,7 @@ class Logger:
 
     def log_info(self, msg):
         """Wrapper of Logger.info()
-        
+
         Args:
             msg: Log message as 'str'
         """
@@ -211,7 +212,7 @@ class Logger:
 
     def log_warning(self, msg):
         """Wrapper of Logger.warning()
-        
+
         Args:
             msg: Log message as 'str'
         """
@@ -219,7 +220,7 @@ class Logger:
 
     def log_error(self, msg):
         """Wrapper of Logger.error()
-        
+
         Args:
             msg: Log message as 'str'
         """

@@ -18,7 +18,7 @@ from src.f451_logger.logger import Logger
 # =========================================================
 @pytest.fixture
 def valid_str():
-    return "Hello world"
+    return 'Hello world'
 
 
 # =========================================================
@@ -35,13 +35,13 @@ def test_debug(capsys, valid_str):
 def test_log_default(caplog, valid_str):
     caplog.set_level(logging.DEBUG)
 
-    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.DEBUG)
+    logger = Logger(LOGNAME='testLogger', LOGLVL=logging.DEBUG)
     logger.log(valid_str)
 
     assert valid_str in caplog.text
-    assert caplog.records[0].levelname == "DEBUG"
-    assert caplog.records[0].name == "testLogger"
-    
+    assert caplog.records[0].levelname == 'DEBUG'
+    assert caplog.records[0].name == 'testLogger'
+
     caplog.clear()
     caplog.set_level(logging.DEBUG + 5)
 
@@ -51,21 +51,24 @@ def test_log_default(caplog, valid_str):
     assert not caplog.records
 
 
-@pytest.mark.parametrize("testLogLvl, testLogLvlStr", [
-    (logging.DEBUG, "DEBUG"),
-    (logging.INFO, "INFO"),
-    (logging.WARNING, "WARNING"),
-    (logging.ERROR, "ERROR"),
-])
+@pytest.mark.parametrize(
+    'testLogLvl, testLogLvlStr',
+    [
+        (logging.DEBUG, 'DEBUG'),
+        (logging.INFO, 'INFO'),
+        (logging.WARNING, 'WARNING'),
+        (logging.ERROR, 'ERROR'),
+    ],
+)
 def test_log(caplog, valid_str, testLogLvl, testLogLvlStr):
     caplog.set_level(logging.DEBUG)
 
-    logger = Logger(LOGNAME="testLogger", LOGLVL=testLogLvl)
+    logger = Logger(LOGNAME='testLogger', LOGLVL=testLogLvl)
     logger.log(valid_str, testLogLvl)
 
     assert valid_str in caplog.text
     assert caplog.records[0].levelname == testLogLvlStr
-    
+
     caplog.clear()
     caplog.set_level(testLogLvl + 5)
 
@@ -78,13 +81,13 @@ def test_log(caplog, valid_str, testLogLvl, testLogLvlStr):
 def test_log_debug(caplog, valid_str):
     caplog.set_level(logging.DEBUG)
 
-    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.DEBUG)
+    logger = Logger(LOGNAME='testLogger', LOGLVL=logging.DEBUG)
     logger.log_debug(valid_str)
 
     assert valid_str in caplog.text
-    assert caplog.records[0].levelname == "DEBUG"
-    assert caplog.records[0].name == "testLogger"
-    
+    assert caplog.records[0].levelname == 'DEBUG'
+    assert caplog.records[0].name == 'testLogger'
+
     caplog.clear()
     caplog.set_level(logging.DEBUG + 5)
 
@@ -97,13 +100,13 @@ def test_log_debug(caplog, valid_str):
 def test_log_info(caplog, valid_str):
     caplog.set_level(logging.INFO)
 
-    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.INFO)
+    logger = Logger(LOGNAME='testLogger', LOGLVL=logging.INFO)
     logger.log_info(valid_str)
 
     assert valid_str in caplog.text
-    assert caplog.records[0].levelname == "INFO"
-    assert caplog.records[0].name == "testLogger"
-    
+    assert caplog.records[0].levelname == 'INFO'
+    assert caplog.records[0].name == 'testLogger'
+
     caplog.clear()
     caplog.set_level(logging.INFO + 5)
 
@@ -116,13 +119,13 @@ def test_log_info(caplog, valid_str):
 def test_log_warning(caplog, valid_str):
     caplog.set_level(logging.WARNING)
 
-    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.WARNING)
+    logger = Logger(LOGNAME='testLogger', LOGLVL=logging.WARNING)
     logger.log_warning(valid_str)
 
     assert valid_str in caplog.text
-    assert caplog.records[0].levelname == "WARNING"
-    assert caplog.records[0].name == "testLogger"
-    
+    assert caplog.records[0].levelname == 'WARNING'
+    assert caplog.records[0].name == 'testLogger'
+
     caplog.clear()
     caplog.set_level(logging.WARNING + 5)
 
@@ -135,13 +138,13 @@ def test_log_warning(caplog, valid_str):
 def test_log_error(caplog, valid_str):
     caplog.set_level(logging.ERROR)
 
-    logger = Logger(LOGNAME="testLogger", LOGLVL=logging.ERROR)
+    logger = Logger(LOGNAME='testLogger', LOGLVL=logging.ERROR)
     logger.log_error(valid_str)
 
     assert valid_str in caplog.text
-    assert caplog.records[0].levelname == "ERROR"
-    assert caplog.records[0].name == "testLogger"
-    
+    assert caplog.records[0].levelname == 'ERROR'
+    assert caplog.records[0].name == 'testLogger'
+
     caplog.clear()
     caplog.set_level(logging.ERROR + 5)
 
