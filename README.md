@@ -1,4 +1,4 @@
-# f451 Labs Logger module v1.0.0
+# f451 Labs Logger module v1.0.1
 
 ## Overview
 
