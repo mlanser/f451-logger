@@ -19,16 +19,8 @@ This module is dependent on the following libraries:
 
 You can use `pip install` to install this module directly from Github as follows:
 
-Using HTTPS:
-
 ```bash
 $ pip install 'f451-logger @ git+https://github.com/mlanser/f451-logger.git'
-```
-
-Using SSH:
-
-```bash
-$ pip install 'f451-logger @ git+ssh://git@github.com:mlanser/f451-logger.git'
 ```
 
 ## How to use
