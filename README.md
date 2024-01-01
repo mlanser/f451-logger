@@ -1,5 +1,7 @@
 # f451 Labs Logger module v1.0.1
 
+**NOTE:** THIS MODULE HAS BEEN INCORPORATED INTO [*f451 Labs Common*](https://github.com/mlanser/f451-common) AND THIS REPO WILL SOON BE DELETED.
+
 ## Overview
 
 The *f451 Labs Logger* module encapsulates the default Python `Logging` class and adds a few more features that are commonly used in *f451 Labs* projects.
